@@ -3,6 +3,8 @@
 (function (app) {
     app.controller("HomeCtrl", [
         "$scope", "gitHelperSvc", "$http", function ($scope, gitHelperSvc, $http) {
+
+
             $scope.name = "Atish";
             gitHelperSvc.getAllCommits().then(function (data) {
                 console.log(data);
@@ -70,6 +72,12 @@
                 var formattedDate = date.format("dd-MM-yyyy");
                 return formattedDate;
             }
+
+            //Start - Initialize Array to keep selected Ids...; Author: Biswajit
+            $scope.mySelections = [];
+            $scope.selectedIDs = [];
+            //End - Edited; Author: Biswajit
+
             $scope.gridOptions = {
                 data: 'myData',
                 enablePaging: true,
@@ -78,8 +86,42 @@
                 pagingOptions: $scope.pagingOptions,
                 filterOptions: $scope.filterOptions,
                 enableColumnResize: true,
-                columnDefs: [
-    { field: 'Commited', displayName: 'Commited', cellTemplate: '<p>{{formatDateTime(row.entity.Commited)}}</p>' }]
+                showSelectionCheckbox: true,
+
+                
+                //Start - Filter the Id/ Hash from selection of grid row select; Author: Biswajit
+                selectedItems: $scope.mySelections,
+                afterSelectionChange: function () {
+                    $scope.selectedIDs = [];
+                    $scope.selectedDatas = $scope.selectedData || [];
+                    $scope.selectedChanges = [];
+                    angular.forEach($scope.mySelections, function (item) {
+                        angular.forEach(item.Changes, function (change) {
+                            //console.log(" * " + change.Name + " " + change.Path);
+                            if (typeof _.findWhere($scope.selectedChanges, change) == "undefined") {
+                                $scope.selectedChanges.push(change);
+                            }
+
+                            // Test....
+
+                        });
+                    });
+                }
+                //End - Edited; Author: Biswajit
+            };
+
+
+            $scope.gridChangesOptions = {
+                data: 'selectedChanges',
+                enablePaging: true,
+                enableColumnResize: true,
+                showSelectionCheckbox: true,
+                //Start - Edited; Author: Biswajit
+                selectedItems: $scope.myChangesSelection,
+                afterSelectionChange: function () {
+
+                }
+                //End - Edited; Author: Biswajit
             };
 
         }
