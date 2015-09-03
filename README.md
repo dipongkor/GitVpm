@@ -2,3 +2,5 @@
 
 Git hook test for push event
 
+commit
+
