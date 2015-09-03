@@ -1,3 +1,4 @@
 # GitVpm
 
-Web Hook Test
+Git hook test for push event
+
