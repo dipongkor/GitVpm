@@ -3,3 +3,5 @@ text 1
 text 1
 
 test 2 force
+
+push test local
