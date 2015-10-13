@@ -12,3 +12,17 @@ push test local
 sdfdf
 sdfdf
 asd
+text 1
+
+text 1
+
+test 2 force
+
+
+sdfds
+push test local
+.travis.yml file added
+
+sdfdf
+sdfdf
+asd
